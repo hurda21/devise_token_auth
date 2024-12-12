@@ -45,17 +45,17 @@ module DeviseTokenAuth
             end
 
             def current_#{group_name}(favourite=nil)
-              @current_#{group_name} ||= set_group_user_by_token(favourite)
-            end
-            
-            def set_group_user_by_token(favourite)
               mappings = #{mappings}
               mappings.unshift mappings.delete(favourite.to_sym) if favourite
+
+              current = nil
               mappings.each do |mapping|
                 current = set_user_by_token(mapping)
-                return current if current
+                break if current
               end
-              nil
+
+              @current_#{group_name} ||= current
+              current
             end
 
             def current_#{group_name.to_s.pluralize}
