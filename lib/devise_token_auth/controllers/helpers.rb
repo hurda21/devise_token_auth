@@ -55,7 +55,6 @@ module DeviseTokenAuth
               end
 
               @current_#{group_name} ||= current
-              current
             end
 
             def current_#{group_name.to_s.pluralize}
